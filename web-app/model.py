@@ -37,6 +37,16 @@ def get_model():
 	return model
 
 
+def list_directories():
+	model_dir = os.environ.get('MODEL_DIR')
+	dir_list = os.listdir(model_dir)
+
+	print("printing directory ...")
+	for d in dir_list:
+		print(dir_list[d])
+
+	print("done reading.")
+
 
 def load_image(filepath: str) -> torch.Tensor:
 	# converts image to PIL which is required
@@ -73,11 +83,15 @@ def run_inference(filepath: str, model_path: str) -> int:
 
 def inference(image_path):
 
+	list_directories()
+
 	# load the model from storage
 	# model = get_model()
 	model_dir = os.environ.get('MODEL_DIR')
 	model_file = os.listdir(model_dir)[0]
 	model_path = model_dir + "/" + model_file
+
+	print("grabbing file in inference from location: ", model_path)
 
 	predicted_class = run_inference(image_path, model_path)
 	outstring = (f"Its predicted class is: {predicted_class}")

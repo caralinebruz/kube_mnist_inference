@@ -9,14 +9,18 @@ UPLOAD_FOLDER = os.environ.get('UPLOAD_DIR')
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 port = int(os.getenv("PORT"))
 
 
 
-# uses https://stackoverflow.com/questions/44926465/upload-image-in-flask
 
-@app.route('/', methods=['GET', 'POST'])
+# uses https://stackoverflow.com/questions/44926465/upload-image-in-flask
+@app.route('/')
+def hello_world():
+     return 'Hello NYU Cloud and Machine Learning Students! I am running on port ' + str(port)
+
+
+@app.route('/inference', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         if 'file1' not in request.files:
@@ -39,14 +43,6 @@ def upload_file():
     </form>
     '''
 
-
-
-#@app.route('/')
-# def hello_world():
-
-#     model.get_model()
-
-#     return 'Hello NYU Cloud and Machine Learning Students! I am running on port ' + str(port)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=port, debug=True)

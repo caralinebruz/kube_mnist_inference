@@ -1,7 +1,4 @@
-FROM python:3.10-slim-bullseye
-
-RUN apt-get update &&
-  apt-get -y upgrade
+FROM --platform=linux/amd64 python:3.10-slim-bullseye
 
 ENV PORT 8080
 EXPOSE $PORT
@@ -10,16 +7,9 @@ WORKDIR /app
 
 # this is where images will go
 RUN mkdir /app/static
-
-# this is currently where my stored model params are
-# this is what line i remove when i combine the containers
-# ADD model/. /app/model
-
-# this line may change when i mount storage
-VOLUME /app/model
-
 ENV UPLOAD_DIR /app/static
-ENV MODEL_DIR /app/model
+
+ENV MODEL_DIR /model
 
 ADD requirements.txt /app
 RUN pip3 install -r requirements.txt
